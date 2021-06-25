@@ -1,29 +1,83 @@
 import React, { useState } from "react";
+import RecatDisplay from "./RecatDisplay"
 
-function Recat(){
+function Recat() {
+  const catPile = [];
 
-const [tag, setTag] = useState("");
-const [speakTog, setSpeakTog] = useState("yes");
-const [speak, setSpeak] = useState("");
+  const [cats, setCats] = useState(catPile);
+  const [speakTog, setSpeakTog] = useState("no");
+  const [speak, setSpeak] = useState("");
 
-    return (
-        <>
-        <div>
-            Recat
+
+  let speakBox;
+  if (speakTog === "yes") {
+    speakBox = (
+      <>
+        <br />
+        <input value={speak} onChange={(e) => setSpeak(e.target.value)} />
+      </>
+    );
+  } else {
+    speakBox = <></>;
+  }
+
+  const getCat = async () => {
+    try {
+      let response = await fetch('https://thatcopy.pw/catapi/rest/');
+      let data = await response.json();
+      console.log(data.url)
+      setCats((current) => [...current, data.url])
+    } catch (err) {
+      // error handling here
+    } finally {
+      console.log("Meow");
+    }
+  };
+
+  return (
+    <>
+      <header>Recat</header>
+
+      <div>
+        <label>Name?</label>
+        <input
+          type="radio"
+          name="catSpeak"
+          value="yes"
+          id="speakYes"
+          checked={speakTog === "yes"}
+          onChange={(e) => setSpeakTog(e.target.value)}
+        />
+        <label htmlFor="speakYes">Yes</label>
+        <input
+          type="radio"
+          name="catSpeak"
+          value="no"
+          id="speakNo"
+          checked={speakTog === "no"}
+          onChange={(e) => setSpeakTog(e.target.value)}
+        />
+        <label htmlFor="speakNo">No</label>
+        {speakBox}
+      </div>
+      <button
+        onClick={(e) => {
+            getCat();
+            setSpeak("");
+        }}
+      >
+        Get Cat
+      </button>
+
+        <div className="flex rowWrap">
+                   {cats.map((cat,idx) => (
+            <RecatDisplay cat={cat} speak={speak} key={idx}/>
+        ))} 
         </div>
 
-        <input value={tag}  onChange={(e) => setTag(e.target.value)}/>
-        <br/>
-        <div>
-            <label>Meow?</label>
-            <input type="radio" name="catSpeak" value="yes" id="speakYes"/>
-            <label htmlFor="speakYes">Yes</label>
-            <input type="radio" name="catSpeak" value="no" id="speakNo" checked/>
-            <label htmlFor="speakNo">No</label>
-        </div>
-        <button>Get Cat</button>
-        </>
-    )
+
+    </>
+  );
 }
 
 export default Recat;
