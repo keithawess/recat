@@ -8,7 +8,6 @@ function Recat() {
   const [speakTog, setSpeakTog] = useState("no");
   const [speak, setSpeak] = useState("");
 
-
   let speakBox;
   if (speakTog === "yes") {
     speakBox = (
@@ -25,8 +24,16 @@ function Recat() {
     try {
       let response = await fetch('https://thatcopy.pw/catapi/rest/');
       let data = await response.json();
-      console.log(data.url)
-      setCats((current) => [...current, data.url])
+      if (speakTog === "yes")
+      {      
+        setCats((current) => [...current, {picture: data.url, name: speak}])
+      }
+      else{
+        let nameRes = await fetch('https://randomuser.me/api/');
+        let nameData = await nameRes.json();
+        console.log(nameData)
+        setCats((current) => [...current, {picture: data.url, name: nameData.results[0].name.first}])
+      }
     } catch (err) {
       // error handling here
     } finally {
@@ -36,7 +43,7 @@ function Recat() {
 
   return (
     <>
-      <header>Recat</header>
+      <header className="App-header">Recat</header>
 
       <div>
         <label>Name?</label>
@@ -63,15 +70,15 @@ function Recat() {
       <button
         onClick={(e) => {
             getCat();
-            setSpeak("");
+        
         }}
       >
         Get Cat
       </button>
 
-        <div className="flex rowWrap">
+        <div className="flex rowWrap catPile">
                    {cats.map((cat,idx) => (
-            <RecatDisplay cat={cat} speak={speak} key={idx}/>
+            <RecatDisplay cat={cat} key={idx}/>
         ))} 
         </div>
 

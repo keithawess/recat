@@ -1,3 +1,34 @@
+.flex{
+  display: flex;
+}
+
+.flexCol{
+  flex-direction: column;
+}
+
+.catPile{
+  max-width: 90%;
+  flex-flow: row-reverse wrap-reverse;
+  justify-content: center;
+  margin: auto;
+}
+
+.catProfile{
+  border: 3px solid black;
+  margin: 5px;
+  z-index: 1;
+}
+
+.catPic{
+  z-index: 0;
+}
+
+.name{
+  background-color: #282c34;
+  color: white;
+}
+
+/*-----------------------------------------------------------------*/
 .App {
   text-align: center;
 }
@@ -15,7 +46,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 15vh;
   display: flex;
   flex-direction: column;
   align-items: center;

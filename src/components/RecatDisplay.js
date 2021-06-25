@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-function RecatDisplay({cat},{speak}) {
-
+function RecatDisplay({cat}) {
+    console.log(cat)
     return (
         <>
-            <div className="catProfile">
-                <img className="catPic" height="100px" width="auto" src={cat} alt="Invis Cat"/>
-                <div>{speak}</div>
+            <div onClick={(e) => e.target.remove()} className="catProfile flex flexCol">
+                <img className="catPic" height="100px" width="auto" src={cat.picture} alt="Invis Cat"/>
+                <div className="name">{cat.name}</div>
             </div>
         </>
     )
