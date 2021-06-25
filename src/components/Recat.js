@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import RecatDisplay from "./RecatDisplay"
+import RecatDisplay from "./RecatDisplay";
+import logo from "./cat.png";
 
 function Recat() {
   const catPile = [];
@@ -43,7 +44,7 @@ function Recat() {
 
   return (
     <>
-      <header className="App-header">Recat</header>
+      <header className="App-header"><img className="App-logo" src={logo} alt="Broke"/> Recat</header>
 
       <div>
         <label>Name?</label>

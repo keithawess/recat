@@ -14,19 +14,18 @@
 }
 
 .catProfile{
-  border: 3px solid black;
+  border-radius: 10% 10%;
   margin: 5px;
-  z-index: 1;
-}
-
-.catPic{
-  z-index: 0;
+  overflow: hidden;
 }
 
 .name{
   background-color: #282c34;
   color: white;
+  padding-left: 2px;
+  padding-right: 2px;
 }
+
 
 /*-----------------------------------------------------------------*/
 .App {
@@ -34,7 +33,7 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 32px;
   pointer-events: none;
 }
 
