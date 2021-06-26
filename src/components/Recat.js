@@ -8,6 +8,8 @@ function Recat() {
   const [cats, setCats] = useState(catPile);
   const [speakTog, setSpeakTog] = useState("no");
   const [speak, setSpeak] = useState("");
+  const [fcat, setFcat] = useState("");
+  const [displayStyle, setDisplayStyle] = useState("none");
 
   let speakBox;
   if (speakTog === "yes") {
@@ -20,6 +22,33 @@ function Recat() {
   } else {
     speakBox = <></>;
   }
+
+  let modal = <></>
+
+  if(displayStyle === "none"){
+      modal = <></>
+  }
+  else{
+      modal = <div className="modal" display={displayStyle}>
+      <div className="modalContent">
+        <span
+          onClick={() => {
+            setDisplayStyle("none");
+            console.log(displayStyle);
+          }}
+          className="close"
+          display={displayStyle}
+        >
+          &times;
+        </span>
+        <div>
+          {fcat}
+        </div>
+      </div>
+    </div>
+  }
+
+
 
   const getCat = async () => {
     try {
@@ -37,14 +66,27 @@ function Recat() {
       }
     } catch (err) {
       // error handling here
+        console.log(err);
     } finally {
       console.log("Meow");
     }
   };
 
+  const getCatFcat = async() =>
+  {
+      try{
+          let response = await fetch("https://catfact.ninja/fact");
+          let data = await response.json();
+          setFcat(data.fact);
+      } catch (err) {
+          console.log(err);
+      }
+  }
+
   return (
     <>
       <header className="App-header"><img className="App-logo" src={logo} alt="Broke"/> Recat</header>
+      {modal}
 
       <div>
         <label>Name?</label>
@@ -71,10 +113,16 @@ function Recat() {
       <button
         onClick={(e) => {
             getCat();
-        
         }}
       >
         Get Cat
+      </button>
+      <button
+      onClick={(e) => {
+          getCatFcat();
+          setDisplayStyle("block");
+      }}>
+          Get Fcat
       </button>
 
         <div className="flex rowWrap catPile">

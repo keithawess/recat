@@ -19,6 +19,46 @@
   overflow: hidden;
 }
 
+.modal{
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,.4);
+}
+
+.modalContent{
+  background-color:#282c34;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #61dafb;
+  border-radius: 5%;
+  width: 80%;
+  color: #61dafb;
+}
+
+.close{
+  color: #61dafb;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,.close:focus{
+  color: #61dafb75;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.catProfile:hover{
+  animation: Bounce 1s infinite;
+}
+
+
+
 .name{
   background-color: #282c34;
   color: white;
@@ -65,4 +105,12 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+@keyframes Bounce {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(0deg); }
+  50% { transform: rotate(5deg); }
+  75% { transform: rotate(-5deg); }
+ 100% { transform: rotate(0deg); }
 }
