@@ -23,75 +23,72 @@ function Recat() {
     speakBox = <></>;
   }
 
-  let modal = <></>
+  let modal = <></>;
 
-  if(displayStyle === "none"){
-      modal = <></>
-  }
-  else{
-      modal = <div className="modal" display={displayStyle}>
-      <div className="modalContent">
-        <span
-          onClick={() => {
-            setDisplayStyle("none");
-            console.log(displayStyle);
-          }}
-          className="close"
-          display={displayStyle}
-        >
-          &times;
-        </span>
-        <div>
-          {fcat}
+  if (displayStyle === "none") {
+    modal = <></>;
+  } else {
+    modal = (
+      <div className="modal" display={displayStyle}>
+        <div className="modalContent">
+          <span
+            onClick={() => {
+              setDisplayStyle("none");
+              console.log(displayStyle);
+            }}
+            className="close"
+            display={displayStyle}
+          >
+            &times;
+          </span>
+          <div>{fcat}</div>
         </div>
       </div>
-    </div>
+    );
   }
 
   function scatter() {
-      setCats([]);
+    setCats([]);
   }
 
   const getCat = async () => {
     try {
-      let response = await fetch('https://thatcopy.pw/catapi/rest/');
+      let response = await fetch("https://thatcopy.pw/catapi/rest/");
       let data = await response.json();
-      if (speakTog === "yes")
-      {      
-        setCats((current) => [...current, {picture: data.url, name: speak}])
-      }
-      else{
-        let nameRes = await fetch('https://randomuser.me/api/');
+      if (speakTog === "yes") {
+        setCats((current) => [...current, { picture: data.url, name: speak }]);
+      } else {
+        let nameRes = await fetch("https://randomuser.me/api/");
         let nameData = await nameRes.json();
         let catify = nameData.results[0].name.first;
 
-        if(!catify.includes("cat"))
-        {
-            catify = catify.replace('ca','cat');
-            console.log(catify);
+        if (!catify.includes("cat")) {
+          catify = catify.replace("ca", "cat");
+          console.log(catify);
         }
-        setCats((current) => [...current, {picture: data.url, name: catify}])
+        setCats((current) => [...current, { picture: data.url, name: catify }]);
       }
     } catch (err) {
       // error handling here
-        console.log(err);
+      console.log(err);
     }
   };
 
-  const getCatFcat = async() =>
-  {
-      try{
-          let response = await fetch("https://catfact.ninja/fact");
-          let data = await response.json();
-          setFcat(data.fact);
-      } catch (err) {
-          console.log(err);
-      }
-  }
+  const getCatFcat = async () => {
+    try {
+      let response = await fetch("https://catfact.ninja/fact");
+      let data = await response.json();
+      setFcat(data.fact);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
-      <header className="App-header"><img className="App-logo" src={logo} alt="Broke"/> Recat</header>
+      <header className="App-header">
+        <img className="App-logo" src={logo} alt="Broke" /> Recat
+      </header>
       {modal}
 
       <div>
@@ -118,31 +115,26 @@ function Recat() {
       </div>
       <button
         onClick={(e) => {
-            getCat();
+          getCat();
         }}
       >
         Get Cat
       </button>
       <button
-      onClick={(e) => {
+        onClick={(e) => {
           getCatFcat();
           setDisplayStyle("block");
-      }}>
-          Get Fcat
-      </button>
-      <button
-       onClick={scatter}
+        }}
       >
-          Scatter
+        Get Fcat
       </button>
+      <button onClick={scatter}>Scatter</button>
 
-        <div className="flex rowWrap catPile">
-                   {cats.map((cat,idx) => (
-            <RecatDisplay cat={cat} key={idx}/>
-        ))} 
-        </div>
-
-
+      <div className="flex rowWrap catPile">
+        {cats.map((cat, idx) => (
+          <RecatDisplay cat={cat} key={idx} />
+        ))}
+      </div>
     </>
   );
 }
