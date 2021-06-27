@@ -48,7 +48,9 @@ function Recat() {
     </div>
   }
 
-
+  function scatter() {
+      setCats([]);
+  }
 
   const getCat = async () => {
     try {
@@ -61,14 +63,18 @@ function Recat() {
       else{
         let nameRes = await fetch('https://randomuser.me/api/');
         let nameData = await nameRes.json();
-        console.log(nameData)
-        setCats((current) => [...current, {picture: data.url, name: nameData.results[0].name.first}])
+        let catify = nameData.results[0].name.first;
+
+        if(!catify.includes("cat"))
+        {
+            catify = catify.replace('ca','cat');
+            console.log(catify);
+        }
+        setCats((current) => [...current, {picture: data.url, name: catify}])
       }
     } catch (err) {
       // error handling here
         console.log(err);
-    } finally {
-      console.log("Meow");
     }
   };
 
@@ -89,7 +95,7 @@ function Recat() {
       {modal}
 
       <div>
-        <label>Name?</label>
+        <label>Catpion?</label>
         <input
           type="radio"
           name="catSpeak"
@@ -123,6 +129,11 @@ function Recat() {
           setDisplayStyle("block");
       }}>
           Get Fcat
+      </button>
+      <button
+       onClick={scatter}
+      >
+          Scatter
       </button>
 
         <div className="flex rowWrap catPile">

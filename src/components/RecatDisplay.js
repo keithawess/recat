@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 function RecatDisplay({ cat }) {
-  console.log(cat);
 
   const [displayStyle, setDisplayStyle] = useState("none");
   let modal = <></>
@@ -15,7 +14,6 @@ function RecatDisplay({ cat }) {
         <span
           onClick={() => {
             setDisplayStyle("none");
-            console.log(displayStyle);
           }}
           className="close"
           display={displayStyle}
